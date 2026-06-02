@@ -121,21 +121,31 @@ export default function FeedCard({ item }: Props) {
           size="small"
           sx={{
             position: "absolute",
-            top: 12,
-            left: 12,
+            top: { xs: 6, sm: 12 },
+            left: { xs: 6, sm: 12 },
+            height: { xs: 18, sm: 24 },
             bgcolor: "rgba(0,0,0,0.55)",
             color: "white",
             fontWeight: 600,
+            fontSize: { xs: 9, sm: 12 },
             letterSpacing: "0.02em",
             backdropFilter: "blur(4px)",
+            "& .MuiChip-label": {
+              px: { xs: 0.75, sm: 1.25 },
+            },
           }}
         />
       </Box>
-      <CardContent sx={{ p: 2 }}>
+      <CardContent
+        sx={{
+          p: { xs: 1, sm: 2 },
+          "&:last-child": { pb: { xs: 1, sm: 2 } },
+        }}
+      >
         <Typography
-          variant="subtitle1"
           sx={{
             fontWeight: 600,
+            fontSize: { xs: 12, sm: 16 },
             lineHeight: 1.3,
             display: "-webkit-box",
             WebkitLineClamp: 2,
@@ -146,11 +156,12 @@ export default function FeedCard({ item }: Props) {
           {item.title}
         </Typography>
         <Typography
-          variant="body2"
           sx={{
             color: "text.secondary",
+            fontSize: { xs: 10, sm: 14 },
+            lineHeight: 1.35,
             mt: 0.5,
-            display: "-webkit-box",
+            display: { xs: "none", sm: "-webkit-box" },
             WebkitLineClamp: 2,
             WebkitBoxOrient: "vertical",
             overflow: "hidden",
@@ -158,12 +169,19 @@ export default function FeedCard({ item }: Props) {
         >
           {item.subtitle}
         </Typography>
-        <Box sx={{ display: "flex", alignItems: "center", mt: 1.5, gap: 1 }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            mt: { xs: 0.75, sm: 1.5 },
+            gap: { xs: 0.5, sm: 1 },
+          }}
+        >
           <Avatar
             sx={{
-              width: 24,
-              height: 24,
-              fontSize: 12,
+              width: { xs: 16, sm: 24 },
+              height: { xs: 16, sm: 24 },
+              fontSize: { xs: 8, sm: 12 },
               bgcolor: catColor,
             }}
           >
@@ -172,8 +190,20 @@ export default function FeedCard({ item }: Props) {
               .map((p) => p[0])
               .join("")}
           </Avatar>
-          <Typography variant="caption" sx={{ color: "text.secondary" }}>
-            {item.author} · {item.readMinutes} min read
+          <Typography
+            sx={{
+              color: "text.secondary",
+              fontSize: { xs: 9, sm: 12 },
+              lineHeight: 1.2,
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+          >
+            <Box component="span" sx={{ display: { xs: "none", sm: "inline" } }}>
+              {item.author} ·{" "}
+            </Box>
+            {item.readMinutes} min
           </Typography>
         </Box>
       </CardContent>

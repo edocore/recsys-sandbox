@@ -112,12 +112,12 @@ export default function Feed() {
           sx={{
             display: "grid",
             gridTemplateColumns: {
-              xs: "1fr",
-              sm: "repeat(2, 1fr)",
+              xs: "repeat(3, 1fr)",
+              sm: "repeat(3, 1fr)",
               md: "repeat(3, 1fr)",
               lg: "repeat(4, 1fr)",
             },
-            gap: { xs: 1.5, sm: 2 },
+            gap: { xs: 1, sm: 1.5, md: 2 },
             opacity: refreshing ? 0.4 : 1,
             transition: "opacity 200ms ease",
           }}

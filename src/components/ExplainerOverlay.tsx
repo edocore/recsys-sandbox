@@ -41,11 +41,14 @@ export default function ExplainerOverlay() {
       onClose={close}
       maxWidth="sm"
       fullWidth
+      scroll="paper"
       slotProps={{
         paper: {
           sx: {
             borderRadius: 4,
             mx: { xs: 2, sm: 4 },
+            my: { xs: 2, sm: 4 },
+            maxHeight: { xs: "calc(100dvh - 32px)", sm: "calc(100dvh - 64px)" },
             overflow: "hidden",
           },
         },
@@ -54,75 +57,81 @@ export default function ExplainerOverlay() {
         },
       }}
     >
-      <Box sx={{ position: "relative" }}>
-        <IconButton
-          aria-label="close"
-          onClick={close}
-          sx={{ position: "absolute", top: 8, right: 8, zIndex: 1 }}
+      <IconButton
+        aria-label="close"
+        onClick={close}
+        sx={{
+          position: "absolute",
+          top: 8,
+          right: 8,
+          zIndex: 2,
+          bgcolor: "rgba(255,255,255,0.85)",
+          backdropFilter: "blur(4px)",
+          "&:hover": { bgcolor: "rgba(255,255,255,0.95)" },
+        }}
+      >
+        <CloseIcon />
+      </IconButton>
+      <DialogContent sx={{ pt: 4, pb: 2, px: { xs: 3, sm: 4 } }}>
+        <Typography variant="overline" sx={{ color: "secondary.main", fontWeight: 700 }}>
+          Welcome
+        </Typography>
+        <Typography variant="h5" sx={{ fontWeight: 700, mt: 0.5, lineHeight: 1.2 }}>
+          This is an experiment in how feeds get built.
+        </Typography>
+        <Typography variant="body2" sx={{ color: "text.secondary", mt: 1.5 }}>
+          Modern recsys (YouTube, TikTok, Instagram) don&rsquo;t recommend
+          content from rules — they learn from billions of micro-signals
+          every minute. This sandbox lets you scroll a feed and see those
+          signals being collected, then tune the weights live.
+        </Typography>
+
+        <Stack spacing={2} sx={{ mt: 3 }}>
+          <Signal
+            icon={<TimerIcon fontSize="small" />}
+            title="Implicit signals"
+            body="Dwell time, scroll velocity, taps, replays. The card you stop on for 4 seconds tells the algorithm more than the one you like."
+          />
+          <Signal
+            icon={<LayersIcon fontSize="small" />}
+            title="Category affinity"
+            body="The feed builds a fading interest profile from what you've watched recently. Old signals decay; fresh ones dominate."
+          />
+          <Signal
+            icon={<GroupsIcon fontSize="small" />}
+            title="Similar users (collaborative filtering)"
+            body="In production, your behavior is matched to thousands of users with similar patterns. Their next-best item becomes your next-best item."
+          />
+          <Signal
+            icon={<ShuffleIcon fontSize="small" />}
+            title="Exploration"
+            body="A controlled dose of randomness keeps the feed from collapsing into an echo chamber and surfaces new interests."
+          />
+        </Stack>
+
+        <Box
+          sx={{
+            mt: 3,
+            p: 2,
+            borderRadius: 2,
+            bgcolor: "rgba(255,0,51,0.06)",
+            border: "1px solid rgba(255,0,51,0.18)",
+          }}
         >
-          <CloseIcon />
-        </IconButton>
-        <DialogContent sx={{ pt: 4, pb: 2, px: { xs: 3, sm: 4 } }}>
-          <Typography variant="overline" sx={{ color: "secondary.main", fontWeight: 700 }}>
-            Welcome
+          <Typography variant="body2" sx={{ fontWeight: 600 }}>
+            Tap the tune icon (top right) at any time to adjust weights.
           </Typography>
-          <Typography variant="h5" sx={{ fontWeight: 700, mt: 0.5, lineHeight: 1.2 }}>
-            This is an experiment in how feeds get built.
+          <Typography variant="caption" sx={{ color: "text.secondary" }}>
+            Already-rendered cards stay put — only upcoming items get
+            re-ranked, mirroring how production feeds avoid jarring shifts.
           </Typography>
-          <Typography variant="body2" sx={{ color: "text.secondary", mt: 1.5 }}>
-            Modern recsys (YouTube, TikTok, Instagram) don&rsquo;t recommend
-            content from rules — they learn from billions of micro-signals
-            every minute. This sandbox lets you scroll a feed and see those
-            signals being collected, then tune the weights live.
-          </Typography>
-
-          <Stack spacing={2} sx={{ mt: 3 }}>
-            <Signal
-              icon={<TimerIcon fontSize="small" />}
-              title="Implicit signals"
-              body="Dwell time, scroll velocity, taps, replays. The card you stop on for 4 seconds tells the algorithm more than the one you like."
-            />
-            <Signal
-              icon={<LayersIcon fontSize="small" />}
-              title="Category affinity"
-              body="The feed builds a fading interest profile from what you've watched recently. Old signals decay; fresh ones dominate."
-            />
-            <Signal
-              icon={<GroupsIcon fontSize="small" />}
-              title="Similar users (collaborative filtering)"
-              body="In production, your behavior is matched to thousands of users with similar patterns. Their next-best item becomes your next-best item."
-            />
-            <Signal
-              icon={<ShuffleIcon fontSize="small" />}
-              title="Exploration"
-              body="A controlled dose of randomness keeps the feed from collapsing into an echo chamber and surfaces new interests."
-            />
-          </Stack>
-
-          <Box
-            sx={{
-              mt: 3,
-              p: 2,
-              borderRadius: 2,
-              bgcolor: "rgba(255,0,51,0.06)",
-              border: "1px solid rgba(255,0,51,0.18)",
-            }}
-          >
-            <Typography variant="body2" sx={{ fontWeight: 600 }}>
-              Tap the tune icon (top right) at any time to adjust weights.
-            </Typography>
-            <Typography variant="caption" sx={{ color: "text.secondary" }}>
-              Already-rendered cards stay put — only upcoming items get
-              re-ranked, mirroring how production feeds avoid jarring shifts.
-            </Typography>
-          </Box>
-        </DialogContent>
-        <DialogActions sx={{ px: { xs: 3, sm: 4 }, pb: 3 }}>
-          <Button onClick={close} variant="contained" color="secondary" size="large" fullWidth>
-            Start scrolling
-          </Button>
-        </DialogActions>
-      </Box>
+        </Box>
+      </DialogContent>
+      <DialogActions sx={{ px: { xs: 3, sm: 4 }, pb: 3, pt: 1 }}>
+        <Button onClick={close} variant="contained" color="secondary" size="large" fullWidth>
+          Start scrolling
+        </Button>
+      </DialogActions>
     </Dialog>
   );
 }
