@@ -1,6 +1,8 @@
-# recsys sandbox
+# Recsys sandbox
 
 A scrollable feed where you can tune a recommendation algorithm in real time and watch the feed respond. Built as a portfolio piece to make the invisible mechanics of modern recsys legible to non-engineers.
+
+Live at: [https://recsys-sandbox.vercel.app](https://recsys-sandbox.vercel.app)
 
 ---
 
